@@ -1,6 +1,6 @@
 # Get Active Process/Window Info
 
-A console app that gets current active process/window info including Handle, PID, WindowTitle, WindowClass, Processname, Filename using Windows API.
+C# console app that gets current active process/window info including Handle, PID, WindowTitle, WindowClass, Processname, Filename using Windows API.
 And it takes screenshots for active window in 2 ways - using PrintWindow API and classic method.
 
 <img src="assets/2024-01-30 15.23.43.png" alt="CMD Window on PrintWindow API" />
