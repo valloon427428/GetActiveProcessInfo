@@ -22,11 +22,11 @@ namespace ActiveProcess
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        public static (IntPtr handle, uint pid, string windowTitle, string windowClass, string processName, string Filename) GetActiveProcessInfo()
+        public static (IntPtr handle, uint pid, string windowTitle, string windowClass, string processName, string filename) GetActiveProcessInfo()
         {
             IntPtr handle = default;
             uint pid = 0;
-            string windowTitle = null, windowClass = null, processName = null, Filename = null;
+            string windowTitle = null, windowClass = null, processName = null, filename = null;
             try
             {
                 handle = GetForegroundWindow();
@@ -61,7 +61,7 @@ namespace ActiveProcess
                         GetWindowThreadProcessId(handle, out pid);
                         Process p = Process.GetProcessById((int)pid);
                         processName = p.ProcessName;
-                        Filename = p.GetMainModuleFileName();
+                        filename = p.GetMainModuleFileName();
                     }
                     catch (Exception ex)
                     {
@@ -73,7 +73,7 @@ namespace ActiveProcess
             {
                 Console.WriteLine(ex);
             }
-            return (handle, pid, windowTitle, windowClass, processName, Filename);
+            return (handle, pid, windowTitle, windowClass, processName, filename);
         }
 
         static void Main(string[] args)
@@ -84,8 +84,8 @@ namespace ActiveProcess
             {
                 Thread.Sleep(1000);
                 loop++;
-                (var handle, var pid, var windowTitle, var windowClass, var processName, var Filename) = GetActiveProcessInfo();
-                var printText = $"Handle = {handle}\nPID = {pid}\nWindowTitle = \"{windowTitle ?? "null"}\"/{windowTitle?.Length}\nWindowClass = \"{windowClass ?? "null"}\"/{windowClass?.Length}\nProcessName = {processName ?? "null"}\"/{processName?.Length}\nFilename = \"{Filename ?? "null"}\"/{Filename?.Length}\n";
+                (var handle, var pid, var windowTitle, var windowClass, var processName, var filename) = GetActiveProcessInfo();
+                var printText = $"Handle = {handle}\nPID = {pid}\nWindowTitle = \"{windowTitle ?? "null"}\"/{windowTitle?.Length}\nWindowClass = \"{windowClass ?? "null"}\"/{windowClass?.Length}\nProcessName = {processName ?? "null"}\"/{processName?.Length}\nFilename = \"{filename ?? "null"}\"/{filename?.Length}\n";
                 if (lastText != printText)
                 {
                     lastText = printText;
